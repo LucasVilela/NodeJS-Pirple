@@ -1,6 +1,7 @@
 var http = require("http")
 var url = require("url")
 var StringDecoder = require("string_decoder").StringDecoder
+var config = require("./config")
 
 var server = http.createServer(function(req, res) {
   // Parse the url
@@ -20,16 +21,19 @@ var server = http.createServer(function(req, res) {
   var headers = req.headers
 
   // Get the payload,if any
-  var decoder = new StringDecoder("utf-8");
-  var buffer = "";
+  var decoder = new StringDecoder("utf-8")
+  var buffer = ""
   req.on("data", function(data) {
     buffer += decoder.write(data)
-  });
+  })
   req.on("end", function() {
     buffer += decoder.end()
 
-      // Check the router for a matching path for a handler. If one is not found, use the notFound handler instead.
-      var chosenHandler = typeof (router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
+    // Check the router for a matching path for a handler. If one is not found, use the notFound handler instead.
+    var chosenHandler =
+      typeof router[trimmedPath] !== "undefined"
+        ? router[trimmedPath]
+        : handlers.notFound
 
     //Construct the data object to send to the handler
     var data = {
@@ -60,8 +64,8 @@ var server = http.createServer(function(req, res) {
   })
 })
 
-server.listen(3000, function() {
-  console.log("The server is listening on 3000 now")
+server.listen(config.port, function() {
+    console.log(`The server is listening on ${config.port} now, in ${config.envName} mode`)
 })
 
 // Define handlers
