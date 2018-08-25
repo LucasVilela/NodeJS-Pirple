@@ -8,6 +8,8 @@
 
 ## Section 3
 
+[Homework 1](./Homeworks/exercise-1/index.js)
+
 ## Section 4
 
 ## Section 5
